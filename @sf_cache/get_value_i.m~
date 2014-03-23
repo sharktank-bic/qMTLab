@@ -1,0 +1,14 @@
+function Sf = get_value_i(p, angle, offset, T2)
+%
+% function Sf = get_value_i(p, angle, offset, T2)
+%
+% interpolate Sf values
+
+
+
+Sf = interp3(p.offsets, p.angles, p.T2, p.values, offset, angle, T2);
+% note order of parameters.  Strange?
+
+if(sum(isnan(Sf)))
+  error('Requested values not in cache')
+end

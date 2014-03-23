@@ -1,0 +1,36 @@
+function p = gaussian_hann(angle, duration,offset,TR, bw)
+%  function p = gaussian_hann(angle, duration, offset,TR, bw)
+%
+%  Hann windowed Gaussian pulse of given angle (degrees),
+%  duration (seconds), offset (Hz), and bandwidth (Hz) 
+
+if nargin == 0
+  S = seqbase(0);
+  p.tau = 0;
+  p.A = 0;
+  p.c = 0;
+  p.s2 = 0;
+  p.dw = 0;
+  p.bw = 0;
+  p.TR = 0;
+  p.rfrate = -1;
+  p.lineshape = '';
+  p = class(p, 'gaussian_hann');
+elseif isa(angle, 'gaussian_hann')
+  p = angle;
+else
+  p.tau = duration;
+  p.A = 1;
+  p.c = duration/2;
+  p.s2 = 2*log(2)/(pi*bw)^2;
+  p.dw = 0;
+  p.bw = bw;
+  p.TR = TR;
+  p.rfrate = -1;
+  p.lineshape = '';
+  S = seqbase(TR);
+  p = class(p, 'gaussian_hann', S);
+  integral = quad8('angle_fcn', 0, p.tau, [], [], p); 
+  p.A = angle*pi/(180*integral);
+  p.dw = 2*pi*offset;
+end

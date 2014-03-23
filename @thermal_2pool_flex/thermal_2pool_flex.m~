@@ -1,0 +1,28 @@
+function p = thermal_2pool_flex(lineshape);
+%  p = thermal_2pool_flex(lineshape);
+%
+if nargin == 0
+  p.lineshape = 0;
+  p = class(p, 'thermal_2pool_flex');
+elseif isa(T2_range, 'superlrtz_line')
+  p = T2_range;
+else
+  p.min_ln_s = log(T2_range(1)) + log(2*pi*offset_range(1));
+  p.max_ln_s = log(T2_range(2)) + log(2*pi*offset_range(2));
+  p.cache = [];
+  p = class(p, 'superlrtz_line');
+
+  % determine sampling of cache
+  delta = min(log(T2_range(2)/T2_range(1))/(n-1), ...
+      log(offset_range(2)/offset_range(1))/(m-1));
+  n = ceil((p.max_ln_s - p.min_ln_s) / delta);
+  delta = (p.max_ln_s - p.min_ln_s) / n;
+
+  p.cache = zeros(n,2);
+  % compute cache values
+  for i = 1:n
+    ln_s = (i-1)*delta + p.min_ln_s;
+    p.cache(i,1) = ln_s;
+    p.cache(i,2) = quad('superlrtz_fcn',0,1, [], [], exp(ln_s));
+  end
+end

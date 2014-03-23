@@ -1,0 +1,5 @@
+function [dM, out2, out3] = feval(p, t, M, flag, sequence, T1, T2, Ka, F, dw)
+%
+% [dM, out2, out3] = feval(p, t, M, flag, sequence, T1, T2, Ka, F, dw)
+%
+[dM, out2, out3] = model(p, t, M, flag, sequence, T1, T2, Ka, F, dw)

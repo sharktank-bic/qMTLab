@@ -1,0 +1,17 @@
+function g = lineshape(p, T2, dw)
+%
+%  g = lineshape(p, T2, dw)
+%
+%  Compute line shape for given T2 (s) and dw (rad/s)
+%
+%  Note g has been set arbitrarily to zero for dw = 0.
+%
+
+m = dw > 0;
+ln_s = log(T2.*dw(m));
+g = zeros(size(dw));
+g(m) = T2.*interp1(p.cache(:,1), p.cache(:,2), ln_s, '*linear');
+
+if(sum(isnan(g)))
+  error('Requested values not in cache')
+end

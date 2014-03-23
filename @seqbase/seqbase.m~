@@ -1,0 +1,16 @@
+function p = hard(angle, duration)
+%  function p = hard(angle, duration)
+%
+%  rect pulse of given angle (degrees) and duration (seconds) 
+
+if nargin == 0
+  p.A = 0;
+  p.tau = 0;
+  p = class(p, 'hard');
+elseif isa(angle, 'hard')
+  p = angle;
+else
+  p.A = angle*pi/(180*duration);
+  p.tau = duration;
+  p = class(p, 'hard');
+end
