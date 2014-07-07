@@ -1,3 +1,0 @@
-function P = power(p)
-
-quad8('power_fcn', 0, p.duration, 
