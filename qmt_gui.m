@@ -61,11 +61,11 @@ handles.output = hObject;
 % addpath('/home/yeiq36/Dropbox/qmt_clean/');
 % Y-Y
 % Update handles structure
-MNI_logo = imread('mni_logo.jpg');
+MNI_logo = imread('logos/mni_logo.jpg');
 axes(handles.logo_axes);
 set(handles.logo_axes,'Position',[3 39.6923 10 10]);
 imshow(MNI_logo);
-McGill_logo = imread('mcgill-logo.png');
+McGill_logo = imread('logos/mcgill-logo.png');
 axes(handles.logo_axes2);
 set(handles.logo_axes2,'Position',[13.5 39.6923 10 10]);
 imshow(McGill_logo);
